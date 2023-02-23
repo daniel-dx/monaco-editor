@@ -1,6 +1,6 @@
 {
 	"name": "@danieldx/monaco-editor",
-	"version": "0.36.0",
+	"version": "0.36.2",
 	"vscodeRef": "b29a89cbf98df4a8e5079a992c313ce9a1749d55",
 	"publishConfig": {
 		"access": "public"
@@ -18,6 +18,7 @@
 		"prettier": "prettier --write .",
 		"pretty-quick": "pretty-quick --staged",
 		"release": "ts-node ./build/build && ts-node ./build/release",
+		"publish-npm": "npm run release && cd release && npm publish",
 		"simpleserver": "ts-node ./build/simpleserver",
 		"package-for-smoketest-webpack": "ts-node ./test/smoke/package-webpack",
 		"package-for-smoketest-webpack-cross-origin": "ts-node ./test/smoke/package-webpack --cross-origin",
@@ -81,8 +82,5 @@
 		"@types/shelljs": "^0.8.11",
 		"pin-github-action": "^1.8.0",
 		"shelljs": "^0.8.5"
-	},
-	"files": [
-		"release"
-	]
+	}
 }

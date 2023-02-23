@@ -94,3 +94,21 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 ## License
 
 Licensed under the [MIT](https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt) License.
+
+## 定制内容
+
+### 增加功能
+
+- 支持 {{}} 表达式模式的代码校验
+
+```js
+monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+	enableCurlyBracesExpressionMode: true
+});
+```
+
+### 发布
+
+```sh
+$ npm run publish-npm
+```
