@@ -10,7 +10,8 @@ import yaserver = require('yaserver');
 import { REPO_ROOT } from './utils';
 import { ensureDir } from './fs';
 
-const WEBSITE_GENERATED_PATH = path.join(REPO_ROOT, 'website/playground/new-samples');
+// const WEBSITE_GENERATED_PATH = path.join(REPO_ROOT, 'website/playground/new-samples');
+const WEBSITE_GENERATED_PATH = path.join(REPO_ROOT, 'website/src/website/data/playground-samples');
 
 generateTestSamplesTask();
 

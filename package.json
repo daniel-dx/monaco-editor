@@ -1,8 +1,10 @@
 {
-	"name": "monaco-editor",
-	"version": "0.35.0",
+	"name": "@danieldx/monaco-editor",
+	"version": "0.36.0",
 	"vscodeRef": "b29a89cbf98df4a8e5079a992c313ce9a1749d55",
-	"private": true,
+	"publishConfig": {
+		"access": "public"
+	},
 	"description": "A browser based code editor",
 	"homepage": "https://github.com/microsoft/monaco-editor",
 	"author": "Microsoft Corporation",
@@ -79,5 +81,8 @@
 		"@types/shelljs": "^0.8.11",
 		"pin-github-action": "^1.8.0",
 		"shelljs": "^0.8.5"
-	}
+	},
+	"files": [
+		"release"
+	]
 }

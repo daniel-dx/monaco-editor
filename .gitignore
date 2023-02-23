@@ -7,3 +7,4 @@
 /test/smoke/parcel/dist/**
 /test/smoke/parcel/.cache/**
 **/dist/
+.history

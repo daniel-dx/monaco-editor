@@ -283,6 +283,46 @@ export class DiagnosticsAdapter extends Adapter {
 		this._disposables = [];
 	}
 
+	/**
+	 * 支持 {{}} 表达式模式的诊断
+	 */
+	private _filterByCurlyBracesExpressionMode(
+		model: editor.ITextModel,
+		diagnostics: Diagnostic[]
+	): Diagnostic[] {
+		// 只保留 {{}} 内的诊断信息
+		const code = model.getValue();
+		const result = diagnostics.filter((item) => {
+			/**
+			 * 只要左边至少有一个单独的 "{{" 且右边至少有一个单独的 "}}" 即可
+			 * 单独是指没有闭合。如果左边是这样的 "{{}}"，因为被闭合了，所以没有单独的 "{{"
+			 */
+			const leftStr = _clean(code.substring(0, item.start));
+			const rightStr = _clean(code.substring((item.start || 0) + (item.length || 0)));
+			const result =
+				!_hasIndependentCurlyBraces(leftStr, true) || !_hasIndependentCurlyBraces(rightStr, false);
+			return !result;
+		});
+		return result;
+
+		/**
+		 * 去掉作为字符串的 {{ 和 }}
+		 * 这里跟 retool 那样的规则，如果要显示字符串的 { 和 }，需要加转义符，如这样 \{ 和 \}
+		 */
+		function _clean(str: string) {
+			return str.replace(/(\\{|\\})/g, '');
+		}
+		/**
+		 * 是否有独立一边的大括号
+		 */
+		function _hasIndependentCurlyBraces(str: string, left: boolean) {
+			const leftCount = (str.match(/\{\{/g) || []).length;
+			const rightCount = (str.match(/\}\}/g) || []).length;
+			const result = left ? leftCount > rightCount : rightCount > leftCount;
+			return result;
+		}
+	}
+
 	private async _doValidate(model: editor.ITextModel): Promise<void> {
 		const worker = await this._worker(model.uri);
 
@@ -292,8 +332,12 @@ export class DiagnosticsAdapter extends Adapter {
 		}
 
 		const promises: Promise<Diagnostic[]>[] = [];
-		const { noSyntaxValidation, noSemanticValidation, noSuggestionDiagnostics } =
-			this._defaults.getDiagnosticsOptions();
+		const {
+			noSyntaxValidation,
+			noSemanticValidation,
+			noSuggestionDiagnostics,
+			enableCurlyBracesExpressionMode
+		} = this._defaults.getDiagnosticsOptions();
 		if (!noSyntaxValidation) {
 			promises.push(worker.getSyntacticDiagnostics(model.uri.toString()));
 		}
@@ -311,13 +355,18 @@ export class DiagnosticsAdapter extends Adapter {
 			return;
 		}
 
-		const diagnostics = allDiagnostics
+		let diagnostics = allDiagnostics
 			.reduce((p, c) => c.concat(p), [])
 			.filter(
 				(d) =>
 					(this._defaults.getDiagnosticsOptions().diagnosticCodesToIgnore || []).indexOf(d.code) ===
 					-1
 			);
+
+		if (enableCurlyBracesExpressionMode) {
+			// {{}} 表达式的错误提示模式
+			diagnostics = this._filterByCurlyBracesExpressionMode(model, diagnostics);
+		}
 
 		// Fetch lib files if necessary
 		const relatedUris = diagnostics

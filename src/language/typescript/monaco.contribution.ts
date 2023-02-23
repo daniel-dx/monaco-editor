@@ -161,6 +161,9 @@ export interface DiagnosticsOptions {
 	 */
 	onlyVisible?: boolean;
 	diagnosticCodesToIgnore?: number[];
+
+	// 开启 {{}} 表达式模式
+	enableCurlyBracesExpressionMode?: boolean;
 }
 
 export interface WorkerOptions {
