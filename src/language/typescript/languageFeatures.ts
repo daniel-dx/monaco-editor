@@ -284,43 +284,104 @@ export class DiagnosticsAdapter extends Adapter {
 	}
 
 	/**
+	 * 获取有效的 {{}} 位置信息。
+	 * 主要逻辑：嵌套的 {{ }} 是无效的
+	 */
+	private _getValidCurlyBracesPositions(code: string) {
+		const result: { start: number; end: number }[] = [];
+
+		let startSymbolIdx = -1;
+		let pendingEndSymbolIdx = -1;
+
+		for (let i = 0; i < code.length; i++) {
+			const symbol = code.substring(i, i + 2);
+
+			if (symbol === '{{') {
+				if (!idxValiable(startSymbolIdx)) {
+					// 新的匹配开始
+					startSymbolIdx = i;
+				} else {
+					// 已经有 {{ 的情况
+					if (idxValiable(pendingEndSymbolIdx)) {
+						// 已经有 }} 的情况，可以闭合（类似这种情况 {{ ... }} {{）
+						result.push({
+							start: startSymbolIdx,
+							end: pendingEndSymbolIdx + 1
+						});
+
+						// 新的匹配开始
+						startSymbolIdx = i;
+						pendingEndSymbolIdx = -1;
+					}
+				}
+			} else if (symbol === '}}') {
+				if (idxValiable(startSymbolIdx)) {
+					// 已经有 {{ 的情况
+					pendingEndSymbolIdx = i;
+				}
+			}
+		}
+
+		if (idxValiable(startSymbolIdx) && idxValiable(pendingEndSymbolIdx)) {
+			// 如果已经有记录 {{ 和 }}，如果能进到这里，说明前面的情况是闭合的情况
+			result.push({
+				start: startSymbolIdx,
+				end: pendingEndSymbolIdx + 1
+			});
+		}
+
+		function idxValiable(idx: number) {
+			return idx >= 0;
+		}
+
+		return result;
+	}
+
+	/**
 	 * 支持 {{}} 表达式模式的诊断
 	 */
-	private _filterByCurlyBracesExpressionMode(
+	private _handleForCurlyBracesExpressionMode(
 		model: editor.ITextModel,
 		diagnostics: Diagnostic[]
 	): Diagnostic[] {
-		// 只保留 {{}} 内的诊断信息
-		const code = model.getValue();
-		const result = diagnostics.filter((item) => {
-			/**
-			 * 只要左边至少有一个单独的 "{{" 且右边至少有一个单独的 "}}" 即可
-			 * 单独是指没有闭合。如果左边是这样的 "{{}}"，因为被闭合了，所以没有单独的 "{{"
-			 */
-			const leftStr = _clean(code.substring(0, item.start));
-			const rightStr = _clean(code.substring((item.start || 0) + (item.length || 0)));
-			const result =
-				!_hasIndependentCurlyBraces(leftStr, true) || !_hasIndependentCurlyBraces(rightStr, false);
-			return !result;
-		});
-		return result;
+		const validCurlyBracesPositions = this._getValidCurlyBracesPositions(model.getValue());
 
-		/**
-		 * 去掉作为字符串的 {{ 和 }}
-		 * 这里跟 retool 那样的规则，如果要显示字符串的 { 和 }，需要加转义符，如这样 \{ 和 \}
-		 */
-		function _clean(str: string) {
-			return str.replace(/(\\{|\\})/g, '');
+		// 1. 只保留有效 {{ ... }} 内的诊断信息
+		const result = diagnostics.filter((item) => {
+			const foundOne = validCurlyBracesPositions.find((pItem) => {
+				const start = item.start || 0;
+				return start > pItem.start && start < pItem.end;
+			});
+			return foundOne;
+		});
+
+		// 2. 有效 {{ ... }} 内的 {{ 和 }} 都提示错误
+		const code = model.getValue();
+		const curlyBraceIndexs: number[] = [];
+		for (let i = 0; i < code.length; i++) {
+			const symbol = code.substring(i, i + 2);
+			if (['{{', '}}'].includes(symbol)) {
+				curlyBraceIndexs.push(i);
+			}
 		}
-		/**
-		 * 是否有独立一边的大括号
-		 */
-		function _hasIndependentCurlyBraces(str: string, left: boolean) {
-			const leftCount = (str.match(/\{\{/g) || []).length;
-			const rightCount = (str.match(/\}\}/g) || []).length;
-			const result = left ? leftCount > rightCount : rightCount > leftCount;
-			return result;
-		}
+		validCurlyBracesPositions.forEach((pItem) => {
+			curlyBraceIndexs.forEach((cbIdx) => {
+				if (cbIdx > pItem.start && cbIdx + 1 < pItem.end) {
+					result.push({
+						file: {
+							fileName: model.uri.toString()
+						},
+						start: cbIdx,
+						length: 2,
+						messageText: 'Unexpected keyword or identifier.',
+						category: 1,
+						code: 1434
+					});
+				}
+			});
+		});
+
+		return result;
 	}
 
 	private async _doValidate(model: editor.ITextModel): Promise<void> {
@@ -365,7 +426,7 @@ export class DiagnosticsAdapter extends Adapter {
 
 		if (enableCurlyBracesExpressionMode) {
 			// {{}} 表达式的错误提示模式
-			diagnostics = this._filterByCurlyBracesExpressionMode(model, diagnostics);
+			diagnostics = this._handleForCurlyBracesExpressionMode(model, diagnostics);
 		}
 
 		// Fetch lib files if necessary
