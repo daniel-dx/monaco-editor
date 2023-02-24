@@ -344,7 +344,8 @@ export class DiagnosticsAdapter extends Adapter {
 		model: editor.ITextModel,
 		diagnostics: Diagnostic[]
 	): Diagnostic[] {
-		const validCurlyBracesPositions = this._getValidCurlyBracesPositions(model.getValue());
+		const code = model.getValue();
+		const validCurlyBracesPositions = this._getValidCurlyBracesPositions(code);
 
 		// 1. 只保留有效 {{ ... }} 内的诊断信息
 		const result = diagnostics.filter((item) => {
@@ -356,7 +357,6 @@ export class DiagnosticsAdapter extends Adapter {
 		});
 
 		// 2. 有效 {{ ... }} 内的 {{ 和 }} 都提示错误
-		const code = model.getValue();
 		const curlyBraceIndexs: number[] = [];
 		for (let i = 0; i < code.length; i++) {
 			const symbol = code.substring(i, i + 2);
