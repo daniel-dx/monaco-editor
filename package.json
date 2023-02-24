@@ -18,7 +18,7 @@
 		"prettier": "prettier --write .",
 		"pretty-quick": "pretty-quick --staged",
 		"release": "ts-node ./build/build && ts-node ./build/release",
-		"publish-npm": "npm run release && cd release && npm publish",
+		"publish-npm": "npm version patch && npm run release && cd release && npm publish",
 		"simpleserver": "ts-node ./build/simpleserver",
 		"package-for-smoketest-webpack": "ts-node ./test/smoke/package-webpack",
 		"package-for-smoketest-webpack-cross-origin": "ts-node ./test/smoke/package-webpack --cross-origin",
