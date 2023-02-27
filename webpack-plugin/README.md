@@ -5,7 +5,7 @@ A plugin to simplify loading the [Monaco Editor](https://github.com/microsoft/mo
 ## Installing
 
 ```sh
-npm install monaco-editor-webpack-plugin
+npm install @danieldx/monaco-editor-webpack-plugin
 ```
 
 ## Using
@@ -13,7 +13,7 @@ npm install monaco-editor-webpack-plugin
 - `webpack.config.js`:
 
 ```js
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const MonacoWebpackPlugin = require('@danieldx/monaco-editor-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -89,17 +89,17 @@ Options can be passed in to `MonacoWebpackPlugin`. They can be used to generate 
 
 ## Version Matrix
 
-| `monaco-editor-webpack-plugin` | `monaco-editor`                        |
-| ------------------------------ | -------------------------------------- |
-| `7.*.*`                        | `>= 0.31.0`                            |
-| `6.*.*`                        | `0.30.*`                               |
-| `5.*.*`                        | `0.29.*`                               |
-| `4.*.*`                        | `0.25.*`, `0.26.*`, `0.27.*`, `0.28.*` |
-| `3.*.*`                        | `0.22.*`, `0.23.*`, `0.24.*`           |
-| `2.*.*`                        | `0.21.*`                               |
-| `1.9.*`                        | `0.20.*`                               |
-| `1.8.*`                        | `0.19.*`                               |
-| `1.7.*`                        | `0.18.*`                               |
+| `@danieldx/monaco-editor-webpack-plugin` | `monaco-editor`                        |
+| ---------------------------------------- | -------------------------------------- |
+| `7.*.*`                                  | `>= 0.31.0`                            |
+| `6.*.*`                                  | `0.30.*`                               |
+| `5.*.*`                                  | `0.29.*`                               |
+| `4.*.*`                                  | `0.25.*`, `0.26.*`, `0.27.*`, `0.28.*` |
+| `3.*.*`                                  | `0.22.*`, `0.23.*`, `0.24.*`           |
+| `2.*.*`                                  | `0.21.*`                               |
+| `1.9.*`                                  | `0.20.*`                               |
+| `1.8.*`                                  | `0.19.*`                               |
+| `1.7.*`                                  | `0.18.*`                               |
 
 ## Contributing
 

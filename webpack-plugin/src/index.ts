@@ -5,7 +5,11 @@ import * as fs from 'fs';
 import { AddWorkerEntryPointPlugin } from './plugins/AddWorkerEntryPointPlugin';
 import { IFeatureDefinition } from './types';
 import { ILoaderOptions } from './loaders/include';
-import { EditorLanguage, EditorFeature, NegatedEditorFeature } from 'monaco-editor/esm/metadata';
+import {
+	EditorLanguage,
+	EditorFeature,
+	NegatedEditorFeature
+} from '@danieldx/monaco-editor/esm/metadata';
 
 const INCLUDE_LOADER_PATH = require.resolve('./loaders/include');
 
@@ -27,11 +31,13 @@ function resolveMonacoPath(filePath: string, monacoEditorPath: string | undefine
 	}
 
 	try {
-		return require.resolve(path.join('monaco-editor/esm', filePath));
+		return require.resolve(path.join('@danieldx/monaco-editor/esm', filePath));
 	} catch (err) {}
 
 	try {
-		return require.resolve(path.join(process.cwd(), 'node_modules/monaco-editor/esm', filePath));
+		return require.resolve(
+			path.join(process.cwd(), 'node_modules/@danieldx/monaco-editor/esm', filePath)
+		);
 	} catch (err) {}
 
 	return require.resolve(filePath);
