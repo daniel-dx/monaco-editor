@@ -3,6 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	</head>
+
 	<body>
 		<h2>Monaco Editor TypeScript test page</h2>
 		<button id="resetBtn">Reset Sample</button>
@@ -12,6 +13,1236 @@
 		<button id="updateCompilerSettingsBtn">Update compiler settings</button>
 
 		<script src="../dev-setup.js"></script>
+		<script>
+			const wedaDTS = `
+declare class UserWidget {
+  // FIXME: 暂时不对外暴露
+  // 内置命名空间
+  // get sys(): {
+  //   readonly id: string;
+  //   readonly module: string;
+  //   readonly component: string;
+  //   readonly parent: UserWidget;
+  //   readonly children: UserWidget[];
+
+  //   closest(filter?: (parentWidget: UserWidget) => boolean): UserWidget | null;
+  // };
+
+  // FIXME: 暂时不对外暴露
+  // 自定义命名空间
+  // get custom(): { [key: string]: any };
+
+  // ========== 快捷访问方式 ========== //
+
+  /**
+   * 组件 ID，微搭中一般由编辑器生成
+   */
+  readonly id: string;
+  /**
+   * 组件库名
+   */
+  readonly module: string;
+  /**
+   * 组件名
+   */
+  readonly component: string;
+
+  /**
+   * 父组件引用
+   */
+  readonly parent: UserWidget;
+  /**
+   * 子组件集合
+   */
+  readonly children: UserWidget[];
+
+  // FIXME: 暂时不对外暴露
+  // closest(filter?: (parentWidget: UserWidget) => boolean): UserWidget | null;
+}
+
+// Used Components Inner Begin
+
+declare class weda_form extends UserWidget {
+
+  msg?: string
+  isHappy?: boolean
+
+  /**
+   *
+   */
+  hello(): void
+
+  /**
+   *
+   */
+  sayHi(msg?: string, name?: string): boolean
+
+}
+
+declare class gsd_h5_react_WdTable extends UserWidget {/**
+  * 表格数据
+  * 表格数据
+  * @privateForWeDa
+  * {"displayType":"array","displayName":"表格数据"}
+  */
+  records?: unknown[]
+  /**
+  * 表格选中数据
+  * 表格选中的数据
+  * @privateForWeDa
+  * {"displayType":"array","displayName":"表格选中数据"}
+  */
+  selectedRecords?: unknown[]
+  /**
+  * 表格数据总数
+  * 表格数据总数
+  * @privateForWeDa
+  * {"displayType":"number","displayName":"表格数据总数"}
+  */
+  total?: number
+  /**
+  * 页长
+  * 每页显示行数
+  * @privateForWeDa
+  * {"displayType":"number","displayName":"页长"}
+  */
+  pageSize?: number
+  /**
+  * 页码
+  * 表格当前页码
+  * @privateForWeDa
+  * {"displayType":"number","displayName":"页码"}
+  */
+  pageNo?: number
+}
+
+declare class CLOUDBASE_STANDARD_Form extends UserWidget {
+
+  /**
+   * data
+   *
+   * @privateForWeDa
+   * {"displayType":"any","displayName":""}
+   */
+  data?: unknown
+
+}
+
+// Used Components - Don't touch me
+// Used Components Inner End
+
+// Redefine Any Type Inner Begin
+
+declare class wdtable1_gsd_h5_react_WdTable extends gsd_h5_react_WdTable {
+
+  /**
+   * 表格数据
+* 表格数据描述
+* @privateForWeDa
+* {"displayType":"array","displayName":"表格数据"}
+    */
+  records: {
+    /**
+     * 名称
+     *
+     * @privateForWeDa
+     * {"group":"dataField","displayType":"string","displayName":"名称"}
+     */
+    name?: string
+  }[]
+
+}
+
+
+declare class form1_CLOUDBASE_STANDARD_Form extends CLOUDBASE_STANDARD_Form {
+
+  /**
+   * 表单数据
+* 表单数据描述
+* @privateForWeDa
+* {"displayType":"object","displayName":"表单数据"}
+    */
+  data: {
+    /**
+     * 名称
+     *
+     * @privateForWeDa
+     * {"group":"dataField","displayType":"string","displayName":"名称"}
+     */
+    name?: string
+  }
+}
+
+// Redefine Any Type Inner End
+
+declare namespace $app {
+  /**
+ * 全局数据对象
+ */
+  namespace dataset {
+
+    /**
+     * 全局变量对象
+     */
+    const state: {
+      // Global State Inner Begin
+
+      /**
+       * g_primitive
+       * @privateForWeDa
+       * {"group":"globalVar","displayType":"string","displayName":""}
+       */
+      g_primitive?: string
+      /**
+       * g_enum
+       * @privateForWeDa
+       * {"group":"globalVar","displayType":"string","displayName":"g_enum"}
+       */
+      g_enum?: ("a" | "b")
+      /**
+       * g_obj
+       * @privateForWeDa
+       * {"group":"globalVar","displayType":"object","displayName":"g_obj"}
+       */
+      g_obj?: {
+        /**
+         * num
+         * @privateForWeDa
+         * {"group":"globalVar","displayType":"number","displayName":"num"}
+         */
+        num?: number
+      }
+      /**
+       * g_arr_primitive
+       * @privateForWeDa
+       * {"group":"globalVar","displayType":"array","displayName":"g_arr_primitive"}
+       */
+      g_arr_primitive?: boolean[]
+      /**
+       * g_arr_primitive_enum
+       * @privateForWeDa
+       * {"group":"globalVar","displayType":"array","displayName":"g_arr_primitive_enum"}
+       */
+      g_arr_primitive_enum?: ("a" | "b" | "c")[]
+      /**
+       * g_arr_obj
+       * @privateForWeDa
+       * {"group":"globalVar","displayType":"array","displayName":"g_arr_obj"}
+       */
+      g_arr_obj?: {
+        /**
+         * name
+         * @privateForWeDa
+         * {"group":"globalVar","displayType":"string","displayName":"name"}
+         */
+        name?: string
+      }[]
+      // Global State 全局变量 - Don't touch me
+      // Global State Inner End
+    };
+  }
+
+  /**
+   * 全局 common 方法
+   */
+  namespace common {
+    // Global Common Inner Begin
+    // Global Common 全局方法 - Don't touch me
+    // Global Common Inner End
+  }
+
+  /**
+   * 设置页面变量
+   */
+  function setState(data: Object): void;
+
+}
+
+declare const app = $app;
+
+declare namespace $w {
+
+  /**
+   * 当前应用实例
+   */
+  const app = $app;
+
+  /**
+   * 当前页面实例
+   */
+  const page = $page;
+
+  /**
+   * 用户权限相关方法和属性
+   */
+  namespace auth {
+
+    interface CurrentUserInfo {
+      /**
+       * 用户 ID
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "string", "displayName": "用户 ID"}
+       */
+      userId?: string;
+      /**
+       * 手机
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "string", "displayName": "手机"}
+       */
+      phone?: string;
+      /**
+       * 用户类型
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "number", "displayName": "用户类型"}
+       */
+      type?: number;
+      /**
+       * 用户关联角色
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "array", "displayName": "用户关联角色"}
+       */
+      relatedRoles?: {
+        /**
+         * 角色 ID
+         *
+         * @privateForWeDa
+         * {"group": "globalVar", "displayType": "string", "displayName": "角色 ID"}
+         */
+        id?: string;
+        /**
+         * 环境 ID
+         *
+         * @privateForWeDa
+         * {"group": "globalVar", "displayType": "string", "displayName": "环境 ID"}
+         */
+        envId?: string;
+        /**
+         * 角色名称
+         *
+         * @privateForWeDa
+         * {"group": "globalVar", "displayType": "string", "displayName": "角色名称"}
+         */
+        name?: string;
+        /**
+         * 角色标识
+         *
+         * @privateForWeDa
+         * {"group": "globalVar", "displayType": "string", "displayName": "角色标识"}
+         */
+        roleIdentity?: string;
+      }[];
+      /**
+       * 微信/企微 openId
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "string", "displayName": "微信/企微 openId"}
+       */
+      openId?: string;
+      /**
+       * 用户名称
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "string", "displayName": "用户名称"}
+       */
+      name?: string;
+      /**
+       * 用户昵称
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "string", "displayName": "用户昵称"}
+       */
+      nickName?: string;
+      /**
+       * 邮箱
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "string", "displayName": "邮箱"}
+       */
+      email?: string;
+      /**
+       * 主岗部门
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "object", "displayName": "主岗部门"}
+       */
+      mainOrg?: {
+        /**
+         * 主岗部门 ID
+         *
+         * @privateForWeDa
+         * {"group": "globalVar", "displayType": "string", "displayName": "主岗部门 ID"}
+         */
+        id?: string;
+        /**
+         * 主岗部门名称
+         *
+         * @privateForWeDa
+         * {"group": "globalVar", "displayType": "string", "displayName": "主岗部门名称"}
+         */
+        name?: string;
+      };
+      /**
+       * 兼岗部门
+       *
+       * @privateForWeDa
+       * {"group": "globalVar", "displayType": "object", "displayName": "兼岗部门"}
+       */
+      orgs?: {
+        /**
+         * 兼岗部门 ID
+         *
+         * @privateForWeDa
+         * {"group": "globalVar", "displayType": "string", "displayName": "兼岗部门 ID"}
+         */
+        id?: string;
+        /**
+         * 兼岗部门名称
+         *
+         * @privateForWeDa
+         * {"group": "globalVar", "displayType": "string", "displayName": "兼岗部门名称"}
+         */
+        name?: string;
+      }[];
+    }
+
+    /**
+     * 获取用户信息
+     */
+    function getUserInfo(): CurrentUserInfo;
+
+    /**
+     *
+     * 登录用户信息
+     *
+     * @privateForWeDa
+     * {"group": "globalVar", "displayType": "object", "displayName": "登录用户信息"}
+     */
+    const currentUser: CurrentUserInfo;
+
+  }
+
+  /**
+   * 数据源等云端能力集合
+   */
+  namespace cloud {
+    interface ICallDataSourceParams {
+      /**
+       * 数据源标志
+       */
+      dataSourceName: string;
+      /**
+       * 数据源方法名
+       */
+      methodName: string;
+      /**
+       * 方法参数，根据方法实际入参填写
+       */
+      params: Object;
+    }
+    interface ICallFunctionParams {
+      /**
+       * TCB云函数名称
+       */
+      name: string;
+      /**
+       * 云函数接收的参数，根据自己创建的云函数入参而定
+       */
+      data?: any;
+    }
+    interface IParseOptions {
+      /**
+       * 解析 云开发云函数的通用response 包装。为true, 则返回 res.result, 此时会丢失 res.requestId 信息
+       */
+      unwrapResult?: boolean;
+      /**
+       * 解析业务信息，需配合 unwrapResult 使用。为 true 时, res.result.code 非 0 抛出错误, 为 0 则返回 res.result.data
+       */
+      parseBusinessInfo?: boolean;
+    }
+    interface ICallWorkflowParams {
+      /**
+       * 方法名称
+       */
+      action: string;
+      /**
+       * 方法的自定义参数，其中 envType, envId, uid, source 均无需填写
+       */
+      data?: Record<string, any>;
+      /**
+       * 是否自动将 data 的key 改为大写驼峰。默认为 true, 即使用时 data 可以采用小驼峰的 key
+       */
+      capitalizeDataKey?: boolean;
+    }
+
+    /**
+     * 调用数据源
+     */
+    function callDataSource(params: ICallDataSourceParams): any;
+
+    /**
+     * 通过 cloudid 获取静态文件的 http 访问地址
+     */
+    function getTempFileURL(params: string | string[]): Promise<string | string[]>;
+
+    /**
+     * 调用流程
+     */
+    function callWorkflow(action: ICallWorkflowParams): Promise<any>;
+
+    /**
+     * 调用云开发的云函数, 与 $w.cloud.getCloudInstance 示例中的效果大体一致
+     */
+    function callFunction(params: ICallFunctionParams, parseOptions?: IParseOptions): Promise<any>;
+
+    /**
+     * 返回云开发web-sdk初始化后的实例(无需关心tcb环境信息及认证登录的处理), 即 tcb.init 后返回的对象, 可用该对象直接调用tcb的各种能力
+     */
+    function getCloudInstance(): Promise<CloudInstance>;
+
+  }
+
+  /**
+   * 平台工具方法集合
+   */
+  namespace utils {
+    interface navigatorOptions {
+      /**
+       * 子应用包地址，例如 packages/subapp
+       */
+      packageName: string;
+      /**
+       * 页面 ID
+       */
+      pageId: string;
+      data?: Record<string, any>;
+      /**
+       * query object 对象
+       */
+      params?: Record<string, any>;
+      events?: Record<string, (data: any) => void>;
+      success(res: any);
+      fail(res: any);
+      complete(res: any);
+    }
+
+    interface navigateBackOptions {
+      /**
+       * 返回的页面数，如果 delta 大于现有页面数，则返回到首页。
+       */
+      delta: number;
+    }
+
+    /**
+     * 显示提示框
+     */
+    function showToast(options);
+
+    /**
+     * 显示全局加载中提示
+     */
+    function showLoading(options);
+
+    /**
+     * 隐藏全局加载中提示
+     */
+    function hideLoading(options);
+
+    /**
+     * 显示模态弹框
+     */
+    function showModal(options);
+
+    /**
+     * 拨打电话
+     */
+    function callPhone(options);
+
+    /**
+     * 扫描二维码
+     */
+    function scanCode(options: {
+      /**
+       * 是否只能从相机扫码，不允许从相册选择图片
+       */
+      onlyFromCamera?: boolean;
+      enableDefaultBehavior?: boolean;
+      /**
+       * 扫码类型
+       */
+      scanType?: ('barCode' | 'qrCode')[];
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?: (res: { result: string; scanType: string }) => void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?: (err: Error) => void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?: () => void;
+    }): Promise<ScanCodeResult> | ScanCodeResult;
+
+    /**
+     * 跳转到应用某个页面
+     */
+    function navigateTo(options: navigatorOptions);
+
+    /**
+     * 关闭当前页面，跳转到应用内的某个页面
+     */
+    function redirectTo(options: navigatorOptions);
+
+    /**
+     * 关闭所有页面，打开到应用内的某个页面
+     */
+    function reLaunch(options: navigatorOptions);
+
+    /**
+     * 返回首页
+     */
+    function relaunchHome();
+
+    /**
+     * 关闭当前页面，返回上一页面或多级页面
+     */
+    function navigateBack(options: navigateBackOptions);
+
+  }
+
+  /**
+   * 绝对值
+   *
+   * @remarks
+   * 计算传入数字的绝对值
+   *
+   * @privateForWeDa
+   * {"group": "formula", "displayType": "function", "displayName": "绝对值"}
+   */
+  function ABS(num: number): number;
+  /**
+  * 最小值
+  *
+  * @remarks
+  * 返回一组数字中的最小值
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "最小值"}
+  */
+  function Min(...args: number[]): number;
+  /**
+  * 最大值
+  *
+  * @remarks
+  * 返回一组数字中的最大值
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "最大值"}
+  */
+  function Max(...args: number[]): number;
+  /**
+  * 平均值
+  *
+  * @remarks
+  * 返回一组数字中的平均值
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "平均值"}
+  */
+  function Average(...args: number[]): number;
+  /**
+  * 向下取整
+  *
+  * @remarks
+  * 返回传入数字向下取整的结果
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "向下取整"}
+  */
+  function Floor(num: number): number;
+  /**
+  * 向上取整
+  *
+  * @remarks
+  * 返回传入数字向上取整的结果
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "向上取整"}
+  */
+  function Ceiling(num: number): number;
+  /**
+  * 四舍五入
+  *
+  * @remarks
+  * 返回传入数字四舍五入后的结果
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "四舍五入"}
+  */
+  function Round(num: number): number;
+  /**
+  * 求和
+  *
+  * @remarks
+  * 返回一组数字中的和
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "求和"}
+  */
+  function Sum(...args: number[]): number;
+  /**
+  * 随机数
+  *
+  * @remarks
+  * 返回一个指定范围的伪随机数，例如 Rand(10)，返回一个范围在 10 以内的随机数
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "随机数"}
+  */
+  function Rand(num: number): number;
+
+  interface IIfObjectParam {
+    condition: boolean;
+    consequent?: any;
+    alternate?: any;
+  }
+  /**
+  * 条件分支
+  *
+  * @remarks
+  * 按判断条件进行逻辑比较，满足时返回一个值，不满足时返回另一个值。
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "条件分支"}
+  */
+  function If(data: IIfObjectParam): any;
+  function If(condition: boolean, consequent?: any, alternate?: any): any;
+  /**
+  * 是否为空
+  *
+  * @remarks
+  * 判断传入的文本是否为空
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "是否为空"}
+  */
+  function IsEmpty(text: string | string[]): boolean;
+  /**
+  * 是否为null
+  *
+  * @remarks
+  * 判断传入的字段值是否包含数据，即不为 NULL
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "是否为null"}
+  */
+  function NotNull(val: any): boolean;
+  /**
+  * 与
+  *
+  * @remarks
+  * 用于确定所有判断条件是否为真
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "与"}
+  */
+  function And(...args: boolean[]): boolean;
+  /**
+  * 或
+  *
+  * @remarks
+  * 任意一个判断条件为真，则结果为真；所有条件为否，结果才为否
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "或"}
+  */
+  function Or(...args: boolean[]): boolean;
+
+  /**
+  * 获取文本长度
+  *
+  * @remarks
+  * 获取传入文本的字符数
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取文本长度"}
+  */
+  function Len(text: string): number;
+  /**
+  * 是否包含指定文本
+  *
+  * @remarks
+  * 判断文本 1 是否包含文本 2
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "是否包含指定文本"}
+  */
+  function Contains(text1: string, text2: string): boolean;
+  /**
+  * 拆分文本
+  *
+  * @remarks
+  * 根据传入的文本 2，将文本 1 拆分成文本数组，例如 Split("张三,李四,王五", ",")
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "拆分文本"}
+  */
+  function Split(text1: string, text2: string): string[];
+  /**
+  * 删除开头/结尾空格和制表符
+  *
+  * @remarks
+  * 删除文本开头和结尾的所有空格和制表符，文本中间的空格和制表符不会删除
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "删除开头/结尾空格和制表符"}
+  */
+  function Trim(text: string): string;
+  /**
+  * 转换为大写
+  *
+  * @remarks
+  * 将传入的文本转为全大写文本
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "转换为大写"}
+  */
+  function Upper(text: string): string;
+  /**
+  * 转换为小写
+  *
+  * @remarks
+  * 将传入的文本转为全小写文本
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "转换为小写"}
+  */
+  function Lower(text: string): string;
+  /**
+  * 转换为文本
+  *
+  * @remarks
+  * 将数字、时间日期等转换为文本
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "转换为文本"}
+  */
+  /**
+  * 文本拼接
+  *
+  * @remarks
+  * 返回多个文本拼接后的新文本
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "文本拼接"}
+  */
+  function Concat(...text: string[]): string;
+
+  /**
+  * 获取现在时间
+  *
+  * @remarks
+  * 返回当前系统时间，通常与其他日期时间函数搭配使用
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取现在时间"}
+  */
+  function Now(): number;
+  /**
+  * 获取时间戳
+  *
+  * @remarks
+  * 根据输入的日期时间返回时间戳
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取时间戳"}
+  */
+  function Timestamp(arg: number | string | Date): number;
+  /**
+  * 获取秒数
+  *
+  * @remarks
+  * 根据输入的日期时间返回该时间的秒数
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取秒数"}
+  */
+  function Second(arg: number | string | Date): number;
+  /**
+  * 获取分钟数
+  *
+  * @remarks
+  * 根据输入的日期时间返回该时间的分钟部分
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取分钟数"}
+  */
+  function Minute(arg: number | string | Date): number;
+  /**
+  * 获取小时数
+  *
+  * @remarks
+  * 根据输入的日期时间返回该时间的小时部分，24小时制
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取小时数"}
+  */
+  function Hour(arg: number | string | Date): number;
+  /**
+  * 获取天数
+  *
+  * @remarks
+  * 根据输入的日期时间返回该时间的日部分，范围为 1-31
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取天数"}
+  */
+  function Day(arg: number | string | Date): number;
+  /**
+  * 获取星期数
+  *
+  * @remarks
+  * 根据输入的日期时间返回该时间的星期数
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取星期数"}
+  */
+  function DayOfWeek(arg: number | string | Date): number;
+  /**
+  * 获取月数
+  *
+  * @remarks
+  * 根据输入的日期时间返回该时间的月份
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取月数"}
+  */
+  function Month(arg: number | string | Date): number;
+  /**
+  * 获取年份
+  *
+  * @remarks
+  * 根据输入的日期时间返回该时间的年份
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "获取年份"}
+  */
+  function Year(arg: number | string | Date): number;
+  /**
+  * 使用年月日创建日期时间
+  *
+  * @remarks
+  * 根据输入的年月日数值返回一个日期类型的数据，例如 GetDate(2017,3,24)
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "使用年月日创建日期时间"}
+  */
+  function GetDate(year: number, month: number, day: number): number;
+  /**
+  * 使用时间戳创建日期时间
+  *
+  * @remarks
+  * 将日期时间文本根据指定格式转化为日期时间，例如 DateTimeValue("2021-12-11 01:19:12", "yyyy-MM-dd HH:mm:ss")
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "使用时间戳创建日期时间"}
+  */
+  /**
+  * 使用时间日期文本创建日期时间
+  *
+  * @remarks
+  * 将日期时间文本根据指定格式转化为日期时间，例如 DateTimeValue("2021-12-11 01:19:12", "yyyy-MM-dd HH:mm:ss")
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "使用时间日期文本创建日期时间"}
+  */
+  function DateTimeValue(arg: string, val: string): number;
+  /**
+  * 计算年龄
+  *
+  * @remarks
+  * 根据输入的两个日期时间计算出年龄，例如 Age(Date(2017,3,24), Date(2021,3,24))
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "计算年龄"}
+  */
+  function Age(arg: number | string | Date, val: number | string | Date): number;
+  /**
+  * 计算当前年龄
+  *
+  * @remarks
+  * 计算当前年龄，例如 AgeOfNow(Date(2017,3,24))
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "计算当前年龄"}
+  */
+  function AgeOfNow(arg: number | string | Date): number;
+  /**
+  * 增加 X 天
+  *
+  * @remarks
+  * 在传入的日期时间上增加 X 天，支持负数
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "增加 X 天"}
+  */
+  function DateAdd(arg: number | string | Date, day: number): number;
+  /**
+  * 增加 X 月
+  *
+  * @remarks
+  * 在传入的日期和时间上增加 X 月，支持负数
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "增加 X 月"}
+  */
+  function MonthAdd(arg: number | string | Date, month: number): number;
+  /**
+  * 增加 X 年
+  *
+  * @remarks
+  * 在传入的日期和时间上增加 X 年，支持负数
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "增加 X 年"}
+  */
+  function YearAdd(arg: number | string | Date, year: number): number;
+  /**
+  * 天数差
+  *
+  * @remarks
+  * 返回两个日期时间字段之间的天数差，如果为同一天，差数为零
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "天数差"}
+  */
+  function DateDiff(startDay: number | string | Date, endDay: number | string | Date): number;
+  /**
+  * 小时差
+  *
+  * @remarks
+  * 返回两个日期时间字段之间的小时差，如果为同一小时，差数为零
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "小时差"}
+  */
+  function HourDiff(startDay: number | string | Date, endDay: number | string | Date): number;
+  /**
+  * 分钟差
+  *
+  * @remarks
+  * 返回两个日期时间字段之间的分钟差，如果为同一分钟，差数为零
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "分钟差"}
+  */
+  function MinuteDiff(startDay: number | string | Date, endDay: number | string | Date): number;
+  /**
+  * 秒数差
+  *
+  * @remarks
+  * 返回两个日期时间字段之间的天数差，如果为同一天，差数为零
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "秒数差"}
+  */
+  function SecondDiff(startDay: number | string | Date, endDay: number | string | Date): number;
+  /**
+  * 月数差
+  *
+  * @remarks
+  * 返回两个日期时间字段之间的月数差，如果为同一月，差数为零
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "月数差"}
+  */
+  function MonthDiff(startDay: number | string | Date, endDay: number | string | Date): number;
+  /**
+  * 年数差
+  *
+  * @remarks
+  * 返回两个日期时间字段之间的年数差，如果为同一年，差数为零
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "年数差"}
+  */
+  function YearDiff(startDay: number | string | Date, endDay: number | string | Date): number;
+  /**
+  * 日期时间格式化
+  *
+  * @remarks
+  * 格式化日期时间为指定格式的文本，例如 DateText(Date(2017,3,24), "yyyy-MM-dd HH:mm:ss")
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "日期时间格式化"}
+  */
+  function DateText(createdTime: number | string | Date, text: string): string;
+  /**
+  * 是否为今天
+  *
+  * @remarks
+  * 判断传入的日期时间是否为今天，例如 IsToday(Date(2022,4,8))
+  *
+  * @privateForWeDa
+  * {"group": "formula", "displayType": "function", "displayName": "是否为今天"}
+  */
+  function IsToday(date: number | string | Date): boolean;
+
+  // used widgets Inner Begin
+
+  /**
+   * form1
+*
+* @privateForWeDa
+* {"group":"component","displayType":"component","displayName":""}
+    */
+   const form1: form1_CLOUDBASE_STANDARD_Form
+
+  /**
+   * wdtable1
+*
+* @privateForWeDa
+* {"group":"component","displayType":"component","displayName":""}
+    */
+  const wdtable1: wdtable1_gsd_h5_react_WdTable
+
+  /**
+  * id1
+* @privateForWeDa
+* {"group":"component","displayType":"component","displayName":""}
+   */
+  const id1: weda_form
+
+  /**
+  * Repeater1
+* @privateForWeDa
+* {"group":"component","displayType":"component","displayName":""}
+   */
+  const Repeater1: weda_form
+  // used widgets - Don't touch me
+  // used widgets Inner End
+
+  // repeater scope Inner Begin
+
+  /**
+   * item_1111
+* @privateForWeDa
+* {"group":"repeater","displayType":"string","displayName":""}
+   */
+ const item_1111: string = ''
+
+
+
+
+  /**
+  * index_1111
+* @privateForWeDa
+* {"group":"repeater","displayType":"number","displayName":""}
+    */
+  const index_1111: number
+
+
+  /**
+  * item_wdtable1
+* @privateForWeDa
+* {"group":"repeater","displayType":"object","displayName":""}
+  */
+  const item_wdtable1: {
+    name?: string
+  }
+  /**
+  * index_wdtable1
+* @privateForWeDa
+* {"group":"repeater","displayType":"number","displayName":""}
+    */
+  const index_wdtable1: number
+
+
+  /**
+  * item_3333
+* @privateForWeDa
+* {"group":"repeater","displayType":"array","displayName":""}
+  */
+  const item_3333: {
+    name?: string
+  }[]
+
+  /**
+  * index_3333
+* @privateForWeDa
+* {"group":"repeater","displayType":"number","displayName":""}
+    */
+  const index_3333: number
+  // repeater scope - Don't touch me
+  // repeater scope Inner End
+}
+
+
+
+// $page Begin
+declare namespace $page {
+  /**
+ * 当前页面的 id
+ */
+  const id: string;
+
+  /**
+   * 页面数据对象
+   */
+  namespace dataset {
+    /**
+     * 页面变量
+     */
+    const state: {
+      // Page State Inner Begin
+      /**
+       * 中文名称
+       * @privateForWeDa
+       * {"group":"pageVar","displayType":"string","displayName":"中文名称"}
+       */
+      p_primitive?: string
+      // Page State 页面变量 - Don't touch me
+      // Page State Inner End
+    };
+    /**
+     * 页面参数
+     */
+    const params: {
+      // Page Param Inner Begin
+      /**
+       * pp_primitive
+       * @privateForWeDa
+       * {"group":"pageParam","displayType":"string","displayName":""}
+       */
+      pp_primitive?: string
+      // Page Param 页面参数 - Don't touch me
+      // Page Param Inner End
+    };
+  }
+
+  /**
+   * 页面定义 handler 方法
+   */
+  namespace handler {
+    // Page Handler Inner Begin
+    // Page Handler 页面方法 - Don't touch me
+    // Page Handler Inner End
+  }
+
+  /**
+   * 设置页面变量
+   */
+  function setState(userSetState: Record<string, any>): void;
+
+}
+  // $page End
+`;
+		</script>
 		<script>
 			function getDefaultCode() {
 				return [
@@ -147,6 +1378,13 @@
 			}
 
 			loadEditor(() => {
+				monaco.languages.typescript.typescriptDefaults.setExtraLibs([
+					{
+						content: wedaDTS,
+						filePath: `ts:filename/weapp-builtin-${+new Date()}.d.ts` // 这样每次都更改名称才能让设置生效，否则会一直用第一个版本
+					}
+				]);
+
 				const editor = monaco.editor.create(document.getElementById('container'), {
 					value: localStorage.getItem('code') || getDefaultCode(),
 					language: 'typescript',
