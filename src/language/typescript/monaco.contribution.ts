@@ -422,6 +422,12 @@ export interface TypeScriptWorker {
 	getCompletionsAtPosition(fileName: string, position: number): Promise<any | undefined>;
 
 	/**
+	 * Get code relevant path for the given file and position.
+	 * @returns `Promise<string>`
+	 */
+	getRelevantCodePath(fileName: string, position: number): Promise<string>;
+
+	/**
 	 * Get code completion details for the given file, position, and entry.
 	 * @returns `Promise<typescript.CompletionEntryDetails | undefined>`
 	 */

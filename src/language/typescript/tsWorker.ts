@@ -272,7 +272,15 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
 			position,
 			undefined
 		);
+
+		// 当为空内容的情况
+		if (!previousToken) return '';
+
 		let expression = previousToken.parent.expression;
+
+		// 当打了空格的情况，如: ab
+		if (previousToken === expression) return '';
+
 		const codePath = [];
 		while (expression) {
 			if (expression.argumentExpression) {
