@@ -262,6 +262,31 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
 		return this._languageService.getCompletionsAtPosition(fileName, position, undefined);
 	}
 
+	async getRelevantCodePath(fileName: string, position: number): Promise<any> {
+		if (fileNameIsLib(fileName)) {
+			return undefined;
+		}
+		// @ts-ignore
+		const { previousToken } = this._languageService.getRelevantTokens(
+			fileName,
+			position,
+			undefined
+		);
+		let expression = previousToken.parent.expression;
+		const codePath = [];
+		while (expression) {
+			if (expression.argumentExpression) {
+				// [] 的形式访问属性
+				codePath.push(`['${expression.argumentExpression.text}']`);
+			} else {
+				codePath.push(expression.escapedText || expression.name?.escapedText);
+			}
+
+			expression = expression.expression;
+		}
+		return codePath.reverse().join('.').replace(/\.\[/g, '[');
+	}
+
 	async getCompletionEntryDetails(
 		fileName: string,
 		position: number,

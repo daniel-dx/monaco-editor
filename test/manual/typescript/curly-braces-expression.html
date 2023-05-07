@@ -1377,6 +1377,16 @@ declare namespace $page {
 				return { target: 99, jsx: 1, allowNonTsExtensions: true };
 			}
 
+			async function getCompletionsAtPosition(model, position) {
+				const worker = await monaco.languages.typescript.getTypeScriptWorker();
+				const proxy = await worker(model.uri);
+				const offset = model.getOffsetAt(position);
+				const result = await proxy.getCompletionsAtPosition(model.uri.toString(), offset);
+				const relevantCodePath = await proxy.getRelevantCodePath(model.uri.toString(), offset);
+				console.log('relevantCodePath', relevantCodePath);
+				return result;
+			}
+
 			loadEditor(() => {
 				monaco.languages.typescript.typescriptDefaults.setExtraLibs([
 					{
@@ -1396,9 +1406,12 @@ declare namespace $page {
 					enableCurlyBracesExpressionMode: true
 				});
 
-				editor.onDidChangeModelContent(() => {
+				editor.onDidChangeModelContent(async () => {
 					const code = editor.getModel().getValue();
 					localStorage.setItem('code', code);
+
+					const result = await getCompletionsAtPosition(editor.getModel(), editor.getPosition());
+					console.log('>>>> result', result);
 				});
 
 				document.getElementById('resetBtn').onclick = () => {

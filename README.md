@@ -107,6 +107,18 @@ monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
 });
 ```
 
+- 增加获取当前光标前面的代码路径的方法 getRelevantCodePath
+
+```js
+const model = editor.getModel();
+const position = editor.getPosition();
+const worker = await monaco.languages.typescript.getTypeScriptWorker();
+const proxy = await worker(model.uri);
+const offset = model.getOffsetAt(position);
+const relevantCodePath = await proxy.getRelevantCodePath(model.uri.toString(), offset);
+console.log('relevantCodePath', relevantCodePath);
+```
+
 ### 发布
 
 ```sh
