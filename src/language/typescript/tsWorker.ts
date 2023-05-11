@@ -276,6 +276,9 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
 		// 当为空内容的情况
 		if (!previousToken) return '';
 
+		// 非成员，如 () 之类的
+		if (previousToken.parent.kind !== 205) return '';
+
 		let expression = previousToken.parent.expression;
 
 		// 当打了空格的情况，如: ab
