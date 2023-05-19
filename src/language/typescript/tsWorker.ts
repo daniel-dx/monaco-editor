@@ -262,7 +262,7 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
 		return this._languageService.getCompletionsAtPosition(fileName, position, undefined);
 	}
 
-	async getRelevantCodePath(fileName: string, position: number): Promise<any> {
+	async getRelevantCodePath(fileName: string, position: number): Promise<string | undefined> {
 		if (fileNameIsLib(fileName)) {
 			return undefined;
 		}
@@ -296,6 +296,21 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
 			expression = expression.expression;
 		}
 		return codePath.reverse().join('.').replace(/\.\[/g, '[');
+	}
+
+	async getRelevantTokens(fileName: string, position: number): Promise<string | undefined> {
+		if (fileNameIsLib(fileName)) {
+			return undefined;
+		}
+		// @ts-ignore
+		const { previousToken } = this._languageService.getRelevantTokens(
+			fileName,
+			position,
+			undefined
+		);
+
+		// 为了防止循环，暂时简单将 parent 去掉。后面可以让调用方选择要几层
+		return JSON.stringify({ ...previousToken, parent: null });
 	}
 
 	async getCompletionEntryDetails(

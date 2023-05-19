@@ -425,7 +425,13 @@ export interface TypeScriptWorker {
 	 * Get code relevant path for the given file and position.
 	 * @returns `Promise<string>`
 	 */
-	getRelevantCodePath(fileName: string, position: number): Promise<string>;
+	getRelevantCodePath(fileName: string, position: number): Promise<string | undefined>;
+
+	/**
+	 * Get code relevant token for the given file and position.
+	 * @returns `Promise<any>`
+	 */
+	getRelevantTokens(fileName: string, position: number): Promise<string | undefined>;
 
 	/**
 	 * Get code completion details for the given file, position, and entry.

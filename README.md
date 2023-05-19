@@ -119,6 +119,18 @@ const relevantCodePath = await proxy.getRelevantCodePath(model.uri.toString(), o
 console.log('relevantCodePath', relevantCodePath);
 ```
 
+- 增加获取当前光标所在代码的 AST Token 方法 getRelevantTokens
+
+```js
+const model = editor.getModel();
+const position = editor.getPosition();
+const worker = await monaco.languages.typescript.getTypeScriptWorker();
+const proxy = await worker(model.uri);
+const offset = model.getOffsetAt(position);
+const relevantTokens = await proxy.getRelevantTokens(model.uri.toString(), offset);
+console.log('relevantTokens', relevantTokens ? JSON.parse(relevantTokens) : relevantTokens);
+```
+
 ### 发布
 
 ```sh

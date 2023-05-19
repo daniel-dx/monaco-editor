@@ -1384,6 +1384,8 @@ declare namespace $page {
 				const result = await proxy.getCompletionsAtPosition(model.uri.toString(), offset);
 				const relevantCodePath = await proxy.getRelevantCodePath(model.uri.toString(), offset);
 				console.log('relevantCodePath', relevantCodePath);
+				const relevantTokens = await proxy.getRelevantTokens(model.uri.toString(), offset);
+				console.log('relevantTokens', relevantTokens);
 				return result;
 			}
 
