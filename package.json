@@ -1,6 +1,6 @@
 {
 	"name": "@danieldx/monaco-editor",
-	"version": "0.36.13",
+	"version": "0.36.14",
 	"vscodeRef": "b29a89cbf98df4a8e5079a992c313ce9a1749d55",
 	"publishConfig": {
 		"access": "public"
